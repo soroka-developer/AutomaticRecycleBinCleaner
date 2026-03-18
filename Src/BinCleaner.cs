@@ -6,6 +6,8 @@ namespace AutoRecycleBinCleaner.Src
 {
     internal class BinCleaner
     {
+        public static DateTime LastCleanupTime { get; private set; } = DateTime.MinValue;
+
         [DllImport("shell32.dll", CharSet = CharSet.Unicode)]
         static extern uint SHEmptyRecycleBin(IntPtr hwnd, string pszRootPath, uint dwFlags);
 
@@ -17,7 +19,12 @@ namespace AutoRecycleBinCleaner.Src
         { 
             try
             {
-                SHEmptyRecycleBin(IntPtr.Zero, null, SHERB_NOCONFIRMATION | SHERB_NOSOUND | SHERB_NOPROGRESSUI);
+                uint result = SHEmptyRecycleBin(IntPtr.Zero, null, SHERB_NOCONFIRMATION | SHERB_NOSOUND | SHERB_NOPROGRESSUI);
+
+                if (result == 0)
+                {
+                    LastCleanupTime = DateTime.Now;
+                }
             }
             catch (Exception ex)
             {

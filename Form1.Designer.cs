@@ -64,7 +64,7 @@
             // 
             this.lastUpdateText.AutoSize = true;
             this.lastUpdateText.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lastUpdateText.Location = new System.Drawing.Point(128, 9);
+            this.lastUpdateText.Location = new System.Drawing.Point(12, 9);
             this.lastUpdateText.Name = "lastUpdateText";
             this.lastUpdateText.Size = new System.Drawing.Size(60, 24);
             this.lastUpdateText.TabIndex = 2;

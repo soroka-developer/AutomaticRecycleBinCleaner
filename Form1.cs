@@ -22,12 +22,36 @@ namespace AutoRecycleBinCleaner
 
         private void button2_Click(object sender, EventArgs e)
         {
-            button2.Text = timer1.Enabled ? "Stop" : "Start";
+            try
+            {
+                if (!string.IsNullOrEmpty(textBox2.Text))
+                {
+                    if (int.TryParse(textBox2.Text, out int minutes))
+                    {
+                        timer1.Interval = minutes * 60 * 1000;
+                        timer1.Enabled = !timer1.Enabled;
+                        button2.Text = timer1.Enabled ? "Stop" : "Start";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Enter a number!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Enter minutes!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             BinCleaner.Clear();
+            lastUpdateText.Text = $"Last clear: {BinCleaner.LastCleanupTime}";
         }
     }
 }
